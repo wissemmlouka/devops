@@ -9,8 +9,6 @@ services:
       MYSQL_DATABASE: root
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
     networks:
       - app-network
 
@@ -25,8 +23,6 @@ services:
 
 networks:
   app-network:
-    driver: bridge
+    external: true
 
-volumes:
-  mysql_data:
-     external: true
+    
