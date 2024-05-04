@@ -1,0 +1,32 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wissem123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  springboot-app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
